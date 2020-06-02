@@ -4,6 +4,8 @@
 
 struct can_frame canMsg;
 MCP2515 mcp2515(10);
+unsigned long messageHeartbeat = 0;
+#define NO_MESSAGE_HEARTBEAT 1000
 
 void setup() {
   Serial.begin(115200);
@@ -28,6 +30,7 @@ void loop() {
         Serial.print(" ");
       }
       Serial.println();
+      messageHeartbeat = millis();
       break;
     case MCP2515::ERROR_NOMSG:
       // ignore
@@ -36,5 +39,9 @@ void loop() {
       Serial.print("can error: ");
       Serial.println(error);
       break;
+  }
+  if (millis() - messageHeartbeat > NO_MESSAGE_HEARTBEAT) {
+     messageHeartbeat = millis();
+     Serial.println("no messages");
   }
 }
