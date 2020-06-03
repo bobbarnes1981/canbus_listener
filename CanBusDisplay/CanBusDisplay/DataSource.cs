@@ -28,10 +28,9 @@ namespace CanBusDisplay
         {
             get
             {
-                return data[0x201][0] << 8 | data[0x201][1];
+                return (data[0x201][0] << 8 | data[0x201][1]) / 4;
             }
         }
-
         public int TorqueDelta
         {
             get
@@ -39,15 +38,13 @@ namespace CanBusDisplay
                 return data[0x201][2] << 8 | data[0x201][3];
             }
         }
-
         public int Speed
         {
             get
             {
-                return data[0x201][4] << 8 | data[0x201][5];
+                return toSpeed(data[0x201][4] << 8 | data[0x201][5]);
             }
         }
-
         public byte AcceleratorPedal
         {
             get
@@ -72,7 +69,13 @@ namespace CanBusDisplay
                 return (MILState)(data[0x420][4] >> 4);
             }
         }
-
+        public byte MAP
+        {
+            get
+            {
+                return data[0x420][7];
+            }
+        }
         #endregion
 
         #region 0x4B0
@@ -80,31 +83,36 @@ namespace CanBusDisplay
         {
             get
             {
-                return data[0x4B0][0] << 8 | data[0x4B0][1];
+                return toSpeed(data[0x4B0][0] << 8 | data[0x4B0][1]);
             }
         }
         public int ABSSpeedFR
         {
             get
             {
-                return data[0x4B0][2] << 8 | data[0x4B0][3];
+                return toSpeed(data[0x4B0][2] << 8 | data[0x4B0][3]);
             }
         }
         public int ABSSpeedRL
         {
             get
             {
-                return data[0x4B0][4] << 8 | data[0x4B0][5];
+                return toSpeed(data[0x4B0][4] << 8 | data[0x4B0][5]);
             }
         }
         public int ABSSpeedRR
         {
             get
             {
-                return data[0x4B0][6] << 8 | data[0x4B0][7];
+                return toSpeed(data[0x4B0][6] << 8 | data[0x4B0][7]);
             }
         }
         #endregion
+
+        private int toSpeed(int rawSpeed)
+        {
+            return (int)((rawSpeed * 0.0066) - 66);
+        }
 
         public DataSource(string name, int baud)
         {
