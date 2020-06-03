@@ -1,5 +1,6 @@
 ﻿using SdlDotNet.Core;
 using SdlDotNet.Graphics;
+using SdlDotNet.Graphics.Primitives;
 using System;
 using System.Drawing;
 
@@ -10,6 +11,7 @@ namespace CanBusDisplay
         private const int width = 640;
         private const int height = 480;
         private const int colourDepth = 32;
+        private const int lineInterval = 50;
 
         private Surface video;
 
@@ -17,22 +19,20 @@ namespace CanBusDisplay
 
         private DataSource source;
 
+        private bool[] historyLines = new bool[1000];
         private int[] rpmHistory = new int[1000];
         private int[] torqueHistory = new int[1000];
+        private int[] speedHistory = new int[1000];
+        private int[] acelHistory = new int[1000];
+        private int[] coolantHistory = new int[1000];
 
         public Controller(DataSource source)
         {
             this.source = source;
 
-            // fake data
-            Random r = new Random();
-            for (int i = 0; i < rpmHistory.Length; i++)
+            for (int i = 0; i < historyLines.Length; i++)
             {
-                rpmHistory[i] = r.Next(0xFF);
-            }
-            for (int i = 0; i < torqueHistory.Length; i++)
-            {
-                torqueHistory[i] = r.Next(0xFF);
+                historyLines[i] = (i % lineInterval) == 0;
             }
         }
 
@@ -66,10 +66,15 @@ namespace CanBusDisplay
 
             video.Blit(f.Render("Ford Fiesta ST150", Color.White), new Point(0, 0));
 
-            // TODO: only do this every x-interval
+            // TODO: only do this every x-interval?
+            moveLines();
             queue(source.RPM, rpmHistory);
             queue(source.TorqueDelta, torqueHistory);
+            queue(source.Speed, speedHistory);
+            queue(source.AcceleratorPedal, acelHistory);
+            queue(source.Coolant, coolantHistory);
 
+            // TODO: scale values
             video.Blit(f.Render($"RPM {source.RPM}", Color.Red), new Point(0, 20));
             video.Blit(f.Render($"Torque Delta {source.TorqueDelta}", Color.Red), new Point(0, 40));
             video.Blit(f.Render($"Speed {source.Speed}", Color.Red), new Point(0, 60));
@@ -83,16 +88,45 @@ namespace CanBusDisplay
 
             video.Blit(f.Render($"MIL {source.MIL}", Color.Red), new Point(300, 20));
 
-            for (int i = 0; i < rpmHistory.Length; i++)
-            {
-                video.Draw(new Point(width - i, height - rpmHistory[i] -10), Color.Blue);
-            }
-            for (int i = 0; i < torqueHistory.Length; i++)
-            {
-                video.Draw(new Point(width - i, height - torqueHistory[i] -10), Color.Yellow);
-            }
+            drawLines();
+            // TODO: scale graph y axis
+            drawGraph(rpmHistory, Color.Blue, 10);
+            drawGraph(torqueHistory, Color.Yellow, 20);
+            drawGraph(speedHistory, Color.Red, 30);
+            drawGraph(acelHistory, Color.Green, 40);
+            drawGraph(coolantHistory, Color.AliceBlue, 50);
 
             video.Update();
+        }
+
+        private void drawLines()
+        {
+            for (int i = 0; i < width; i++)
+            {
+                if (historyLines[i])
+                {
+                    video.Draw(new Line(new Point(width - i, height), new Point(width - i, height-0xFF)), Color.Gray);
+                }
+            }
+        }
+
+        private void drawGraph(int[] store, Color color, int offset)
+        {
+            int length = Math.Min(store.Length, width);
+            for (int i = 0; i < length; i++)
+            {
+                video.Draw(new Point(width - i, height - store[i] - offset), color);
+            }
+        }
+
+        private void moveLines()
+        {
+            //bool prev = historyLines[historyLines.Length - 1];
+            //for (int i = historyLines.Length-1; i > 0; i--)
+            //{
+            //    historyLines[i] = historyLines[i - 1];
+            //}
+            //historyLines[0] = prev;
         }
 
         private void queue(int value, int[] store)
