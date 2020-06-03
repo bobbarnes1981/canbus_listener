@@ -27,6 +27,13 @@ namespace CanBusDisplay
         private int[] coolantHistory = new int[1000];
         private int[] mapHistory = new int[1000];
 
+        private Color colourRpm = Color.Blue;
+        private Color colourTorque = Color.Yellow;
+        private Color colourSpeed = Color.Red;
+        private Color colourAcel = Color.Green;
+        private Color colourCoolant = Color.AliceBlue;
+        private Color colourMap = Color.Orange;
+
         public Controller(DataSource source)
         {
             this.source = source;
@@ -77,12 +84,12 @@ namespace CanBusDisplay
             queue(source.MAP, mapHistory);
 
             // TODO: scale values
-            video.Blit(f.Render($"RPM {source.RPM}", Color.Red), new Point(0, 20));
-            video.Blit(f.Render($"Torque Delta {source.TorqueDelta}", Color.Red), new Point(0, 40));
-            video.Blit(f.Render($"Speed {source.Speed}", Color.Red), new Point(0, 60));
-            video.Blit(f.Render($"Accelerator {source.AcceleratorPedal}", Color.Red), new Point(0, 80));
-            video.Blit(f.Render($"Coolant {source.Coolant}", Color.Red), new Point(0, 100));
-            video.Blit(f.Render($"MAP {source.MAP}", Color.Red), new Point(0, 120));
+            video.Blit(f.Render($"RPM {source.RPM}", colourRpm), new Point(0, 20));
+            video.Blit(f.Render($"Torque Delta {source.TorqueDelta}", colourTorque), new Point(0, 40));
+            video.Blit(f.Render($"Speed {source.Speed}", colourSpeed), new Point(0, 60));
+            video.Blit(f.Render($"Accelerator {source.AcceleratorPedal}", colourAcel), new Point(0, 80));
+            video.Blit(f.Render($"Coolant {source.Coolant}", colourCoolant), new Point(0, 100));
+            video.Blit(f.Render($"MAP {source.MAP}", colourMap), new Point(0, 120));
 
             video.Blit(f.Render($"ABS FL {source.ABSSpeedFL}", Color.Red), new Point(0, 140));
             video.Blit(f.Render($"ABS FR {source.ABSSpeedFR}", Color.Red), new Point(0, 160));
@@ -93,12 +100,12 @@ namespace CanBusDisplay
 
             drawLines();
             // TODO: scale graph y axis
-            drawGraph(rpmHistory, Color.Blue, 1, 0, 8000);
-            drawGraph(torqueHistory, Color.Yellow, 2, 0, 0xFFFF);
-            drawGraph(speedHistory, Color.Red, 3, -66, 150);
-            drawGraph(acelHistory, Color.Green, 4, 0, 0xFF);
-            drawGraph(coolantHistory, Color.AliceBlue, 5, 0, 0xFF);
-            drawGraph(mapHistory, Color.Orange, 6, 0, 0xFF);
+            drawGraph(rpmHistory, colourRpm, 1, 0, 8000);
+            drawGraph(torqueHistory, colourTorque, 2, 0, 0xFFFF);
+            drawGraph(speedHistory, colourSpeed, 3, -66, 150);
+            drawGraph(acelHistory, colourAcel, 4, 0, 0xFF);
+            drawGraph(coolantHistory, colourCoolant, 5, 0, 0xFF);
+            drawGraph(mapHistory, colourMap, 6, 0, 0xFF);
 
             video.Update();
         }
