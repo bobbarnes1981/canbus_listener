@@ -16,64 +16,19 @@ namespace CanBusDisplay
 
         private Thread workerThread;
 
-        public Dictionary<int, byte[]> data = new Dictionary<int, byte[]>
+        public Dictionary<int, byte[]> Data = new Dictionary<int, byte[]>
         {
             { 0x201, new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 } },
             { 0x420, new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 } },
             { 0x4B0, new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 } },
         };
 
-        #region 0x201
-        public int RPM
-        {
-            get
-            {
-                return (data[0x201][0] << 8 | data[0x201][1]) / 4;
-            }
-        }
-        public int TorqueDelta
-        {
-            get
-            {
-                return data[0x201][2] << 8 | data[0x201][3];
-            }
-        }
-        public int Speed
-        {
-            get
-            {
-                return toSpeed(data[0x201][4] << 8 | data[0x201][5]);
-            }
-        }
-        public byte AcceleratorPedal
-        {
-            get
-            {
-                return data[0x201][6];
-            }
-        }
-        #endregion
-
         #region 0x420
-        public byte Coolant
-        {
-            get
-            {
-                return data[0x420][0];
-            }
-        }
         public MILState MIL
         {
             get
             {
-                return (MILState)(data[0x420][4] >> 4);
-            }
-        }
-        public byte MAP
-        {
-            get
-            {
-                return data[0x420][7];
+                return (MILState)(Data[0x420][4] >> 4);
             }
         }
         #endregion
@@ -83,28 +38,28 @@ namespace CanBusDisplay
         {
             get
             {
-                return toSpeed(data[0x4B0][0] << 8 | data[0x4B0][1]);
+                return toSpeed(Data[0x4B0][0] << 8 | Data[0x4B0][1]);
             }
         }
         public int ABSSpeedFR
         {
             get
             {
-                return toSpeed(data[0x4B0][2] << 8 | data[0x4B0][3]);
+                return toSpeed(Data[0x4B0][2] << 8 | Data[0x4B0][3]);
             }
         }
         public int ABSSpeedRL
         {
             get
             {
-                return toSpeed(data[0x4B0][4] << 8 | data[0x4B0][5]);
+                return toSpeed(Data[0x4B0][4] << 8 | Data[0x4B0][5]);
             }
         }
         public int ABSSpeedRR
         {
             get
             {
-                return toSpeed(data[0x4B0][6] << 8 | data[0x4B0][7]);
+                return toSpeed(Data[0x4B0][6] << 8 | Data[0x4B0][7]);
             }
         }
         #endregion
@@ -167,7 +122,7 @@ namespace CanBusDisplay
 
             for (int i = 0; i < length; i++)
             {
-                data[id][i] = byte.Parse(parts[i + 2], NumberStyles.HexNumber);
+                Data[id][i] = byte.Parse(parts[i + 2], NumberStyles.HexNumber);
             }
         }
     }

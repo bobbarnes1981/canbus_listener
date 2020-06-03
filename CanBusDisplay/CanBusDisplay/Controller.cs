@@ -2,7 +2,9 @@
 using SdlDotNet.Graphics;
 using SdlDotNet.Graphics.Primitives;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 
 namespace CanBusDisplay
 {
@@ -20,27 +22,27 @@ namespace CanBusDisplay
         private DataSource source;
 
         private bool[] historyLines = new bool[1000];
-        private int[] rpmHistory = new int[1000];
-        private int[] torqueHistory = new int[1000];
+        private Dictionary<string, int[]> history = new Dictionary<string, int[]>();
         private int[] speedHistory = new int[1000];
-        private int[] acelHistory = new int[1000];
-        private int[] coolantHistory = new int[1000];
-        private int[] mapHistory = new int[1000];
 
-        private Color colourRpm = Color.Blue;
-        private Color colourTorque = Color.Yellow;
-        private Color colourSpeed = Color.Red;
-        private Color colourAcel = Color.Green;
-        private Color colourCoolant = Color.AliceBlue;
-        private Color colourMap = Color.Orange;
+        private Config config;
 
-        public Controller(DataSource source)
+        public Controller(Config config, DataSource source)
         {
+            this.config = config;
             this.source = source;
 
             for (int i = 0; i < historyLines.Length; i++)
             {
                 historyLines[i] = (i % lineInterval) == 0;
+            }
+
+            foreach (Display d in config.Displays)
+            {
+                if ((d.Type == "byte" || d.Type == "word") && d.Graph)
+                {
+                    history.Add(d.Label, new int[1000]);
+                }
             }
         }
 
@@ -66,30 +68,53 @@ namespace CanBusDisplay
         {
             video.Fill(Color.Black);
 
+            drawLines();
+
             elapsed += e.SecondsElapsed;
 
             Video.WindowCaption = $"CanBusDisplay {elapsed}";
 
             SdlDotNet.Graphics.Font f = new SdlDotNet.Graphics.Font("C:\\Windows\\Fonts\\ARIAL.TTF", 20);
 
-            video.Blit(f.Render("Ford Fiesta ST150", Color.White), new Point(0, 0));
+            // TODO: only update values on specified interval?
 
-            // TODO: only do this every x-interval?
-            moveLines();
-            queue(source.RPM, rpmHistory);
-            queue(source.TorqueDelta, torqueHistory);
-            queue(source.Speed, speedHistory);
-            queue(source.AcceleratorPedal, acelHistory);
-            queue(source.Coolant, coolantHistory);
-            queue(source.MAP, mapHistory);
-
-            // TODO: scale values
-            video.Blit(f.Render($"RPM {source.RPM}", colourRpm), new Point(0, 20));
-            video.Blit(f.Render($"Torque Delta {source.TorqueDelta}", colourTorque), new Point(0, 40));
-            video.Blit(f.Render($"Speed {source.Speed}", colourSpeed), new Point(0, 60));
-            video.Blit(f.Render($"Accelerator {source.AcceleratorPedal}", colourAcel), new Point(0, 80));
-            video.Blit(f.Render($"Coolant {source.Coolant}", colourCoolant), new Point(0, 100));
-            video.Blit(f.Render($"MAP {source.MAP}", colourMap), new Point(0, 120));
+            foreach (Display d in config.Displays)
+            {
+                switch(d.Type)
+                {
+                    case "text":
+                        video.Blit(f.Render(d.Label, Color.FromName(d.Colour)), new Point(d.Location[0], d.Location[1]));
+                        break;
+                    case "byte":
+                        byte valByte = source.Data[int.Parse(d.Value[0], NumberStyles.HexNumber)][int.Parse(d.Value[1], NumberStyles.HexNumber)];
+                        if (d.Graph)
+                        {
+                            queue(valByte, history[d.Label]);
+                            drawGraph(history[d.Label], Color.FromName(d.Colour), d.Min, d.Max);
+                        }
+                        video.Blit(f.Render($"{d.Label} {valByte}", Color.FromName(d.Colour)), new Point(d.Location[0], d.Location[1]));
+                        break;
+                    case "word":
+                        byte hi = source.Data[int.Parse(d.Value[0], NumberStyles.HexNumber)][int.Parse(d.Value[1], NumberStyles.HexNumber)];
+                        byte lo = source.Data[int.Parse(d.Value[2], NumberStyles.HexNumber)][int.Parse(d.Value[3], NumberStyles.HexNumber)];
+                        int valWord = hi << 8 | lo;
+                        if (d.Scale != 0)
+                        {
+                            valWord = (int)(valWord * d.Scale);
+                        }
+                        if (d.Offset != 0)
+                        {
+                            valWord += d.Offset;
+                        }
+                        if (d.Graph)
+                        {
+                            queue(valWord, history[d.Label]);
+                            drawGraph(history[d.Label], Color.FromName(d.Colour), d.Min, d.Max);
+                        }
+                        video.Blit(f.Render($"{d.Label} {valWord}", Color.FromName(d.Colour)), new Point(d.Location[0], d.Location[1]));
+                        break;
+                }
+            }
 
             video.Blit(f.Render($"ABS FL {source.ABSSpeedFL}", Color.Red), new Point(0, 140));
             video.Blit(f.Render($"ABS FR {source.ABSSpeedFR}", Color.Red), new Point(0, 160));
@@ -97,15 +122,6 @@ namespace CanBusDisplay
             video.Blit(f.Render($"ABS RR {source.ABSSpeedRR}", Color.Red), new Point(0, 200));
 
             video.Blit(f.Render($"MIL {source.MIL}", Color.Red), new Point(300, 20));
-
-            drawLines();
-            // TODO: scale graph y axis
-            drawGraph(rpmHistory, colourRpm, 1, 0, 8000);
-            drawGraph(torqueHistory, colourTorque, 2, 0, 0xFFFF);
-            drawGraph(speedHistory, colourSpeed, 3, -66, 150);
-            drawGraph(acelHistory, colourAcel, 4, 0, 0xFF);
-            drawGraph(coolantHistory, colourCoolant, 5, 0, 0xFF);
-            drawGraph(mapHistory, colourMap, 6, 0, 0xFF);
 
             video.Update();
         }
@@ -121,28 +137,18 @@ namespace CanBusDisplay
             }
         }
 
-        private void drawGraph(int[] store, Color color, int offset, int min, int max)
+        private void drawGraph(int[] store, Color color, int min, int max)
         {
             int length = Math.Min(store.Length, width);
             for (int i = 0; i < length; i++)
             {
-                video.Draw(new Point(width - i, height - scale(store[i], min, max, 0, 0xFF) - offset), color);
+                video.Draw(new Point(width - i, height - scale(store[i], min, max, 0, 0xFF) - 1), color);
             }
         }
 
         private int scale(int value, int inMin, int inMax, int outMin, int outMax)
         {
             return (value - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
-        }
-
-        private void moveLines()
-        {
-            //bool prev = historyLines[historyLines.Length - 1];
-            //for (int i = historyLines.Length-1; i > 0; i--)
-            //{
-            //    historyLines[i] = historyLines[i - 1];
-            //}
-            //historyLines[0] = prev;
         }
 
         private void queue<T>(T value, T[] store)

@@ -1,0 +1,74 @@
+{
+    "displays": [
+        {
+            "type": "text",
+            "label": "Ford Fiesta ST150",
+            "location": [ 0, 0 ],
+            "colour": "White"
+        },
+        {
+            "type": "byte",
+            "label": "Coolant",
+            "location": [ 0, 100 ],
+            "colour": "AliceBlue",
+            "value": [ "420", "0" ],
+            "graph": true,
+            "min": 0,
+            "max": 255
+        },
+        {
+            "type": "byte",
+            "label": "MAP",
+            "location": [ 0, 120 ],
+            "colour": "Orange",
+            "value": [ "420", "7" ],
+            "graph": true,
+            "min": 0,
+            "max": 255
+        },
+        {
+            "type": "byte",
+            "label": "Accelerator",
+            "location": [ 0, 80 ],
+            "colour": "Green",
+            "value": [ "201", "6" ],
+            "graph": true,
+            "min": 0,
+            "max": 255
+        },
+        {
+            "type": "word",
+            "label": "TorqueDelta",
+            "location": [ 0, 40 ],
+            "colour": "Yellow",
+            "value": [ "201", "2", "201", "3" ],
+            "graph": true,
+            "min": 0,
+            "max": 65535
+        },
+        {
+            "type": "word",
+            "label": "RPM",
+            "location": [ 0, 20 ],
+            "colour": "Blue",
+            "value": [ "201", "0", "201", "1" ],
+            "graph": true,
+            "min": 0,
+            "max": 8000,
+            "scale": 0.25,
+            "offset": 0
+        },
+        {
+            "type": "word",
+            "label": "Speed",
+            "location": [ 0, 60 ],
+            "colour": "Fuchsia",
+            "value": [ "201", "4", "201", "5" ],
+            "graph": true,
+            "min": -66,
+            "max": 150,
+            "scale": 0.0066,
+            "offset": -66
+        }
+    ]
+}
