@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.IO.Ports;
+using System.Linq;
 using System.Threading;
 
 namespace CanBusDisplay
@@ -19,7 +20,12 @@ namespace CanBusDisplay
         public Dictionary<int, byte[]> Data = new Dictionary<int, byte[]>
         {
             { 0x201, new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 } },
+            { 0x200, new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 } },
+            { 0x210, new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 } },
+            { 0x230, new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 } },
             { 0x420, new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 } },
+            { 0x428, new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 } },
+            { 0x430, new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 } },
             { 0x4B0, new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 } },
         };
 
@@ -105,7 +111,7 @@ namespace CanBusDisplay
 
                     string line = port.ReadLine();
 
-                    if (line.StartsWith("201") || line.StartsWith("420") || line.StartsWith("4B0"))
+                    if (Data.Keys.Any(k => line.StartsWith(k.ToString())))
                     {
                         parseFrame(line);
                     }

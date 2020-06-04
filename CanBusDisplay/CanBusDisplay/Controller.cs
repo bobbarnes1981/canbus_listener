@@ -92,7 +92,10 @@ namespace CanBusDisplay
                             queue(valByte, history[d.Label]);
                             drawGraph(history[d.Label], Color.FromName(d.Colour), d.Min, d.Max);
                         }
-                        video.Blit(f.Render($"{d.Label} {valByte}", Color.FromName(d.Colour)), new Point(d.Location[0], d.Location[1]));
+                        if (d.Location != null)
+                        {
+                            video.Blit(f.Render($"{d.Label} {valByte}", Color.FromName(d.Colour)), new Point(d.Location[0], d.Location[1]));
+                        }
                         break;
                     case "word":
                         byte hi = source.Data[int.Parse(d.Value[0], NumberStyles.HexNumber)][int.Parse(d.Value[1], NumberStyles.HexNumber)];
@@ -111,7 +114,10 @@ namespace CanBusDisplay
                             queue(valWord, history[d.Label]);
                             drawGraph(history[d.Label], Color.FromName(d.Colour), d.Min, d.Max);
                         }
-                        video.Blit(f.Render($"{d.Label} {valWord}", Color.FromName(d.Colour)), new Point(d.Location[0], d.Location[1]));
+                        if (d.Location != null)
+                        {
+                            video.Blit(f.Render($"{d.Label} {valWord}", Color.FromName(d.Colour)), new Point(d.Location[0], d.Location[1]));
+                        }
                         break;
                 }
             }

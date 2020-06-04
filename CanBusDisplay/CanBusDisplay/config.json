@@ -69,6 +69,232 @@
             "max": 150,
             "scale": 0.0066,
             "offset": -66
+        },
+
+
+        {
+            "type": "byte",
+            "label": "0x201 0",
+            "colour": "Red",
+            "value": [ "201", "0" ],
+            "graph": true,
+            "min": 0,
+            "max": 255
+        },
+        {
+            "type": "byte",
+            "label": "0x201 1",
+            "colour": "Red",
+            "value": [ "201", "1" ],
+            "graph": true,
+            "min": 0,
+            "max": 255
+        },
+        {
+            "type": "byte",
+            "label": "0x201 4",
+            "colour": "Red",
+            "value": [ "201", "4" ],
+            "graph": true,
+            "min": 0,
+            "max": 255
+        },
+        {
+            "type": "byte",
+            "label": "0x201 5",
+            "colour": "Red",
+            "value": [ "201", "5" ],
+            "graph": true,
+            "min": 0,
+            "max": 255
+        },
+        {
+            "type": "byte",
+            "label": "0x201 6",
+            "colour": "Red",
+            "value": [ "201", "6" ],
+            "graph": true,
+            "min": 0,
+            "max": 255
+        },
+
+
+        {
+            "type": "byte",
+            "label": "0x210 2",
+            "colour": "Red",
+            "value": [ "210", "2" ],
+            "graph": true,
+            "min": 0,
+            "max": 255
+        },
+        {
+            "type": "byte",
+            "label": "0x210 3",
+            "colour": "Red",
+            "value": [ "210", "3" ],
+            "graph": true,
+            "min": 0,
+            "max": 255
+        },
+        {
+            "type": "byte",
+            "label": "0x210 4",
+            "colour": "Red",
+            "value": [ "210", "4" ],
+            "graph": true,
+            "min": 0,
+            "max": 255
+        },
+        {
+            "type": "byte",
+            "label": "0x210 5",
+            "colour": "Red",
+            "value": [ "210", "5" ],
+            "graph": true,
+            "min": 0,
+            "max": 255
+        },
+        {
+            "type": "byte",
+            "label": "0x210 6",
+            "colour": "Red",
+            "value": [ "210", "6" ],
+            "graph": true,
+            "min": 0,
+            "max": 255
+        },
+
+
+        {
+            "type": "byte",
+            "label": "0x230 2",
+            "colour": "Red",
+            "value": [ "230", "2" ],
+            "graph": true,
+            "min": 0,
+            "max": 255
+        },
+        {
+            "type": "byte",
+            "label": "0x230 4",
+            "colour": "Red",
+            "value": [ "230", "4" ],
+            "graph": true,
+            "min": 0,
+            "max": 255
+        },
+        {
+            "type": "byte",
+            "label": "0x230 5",
+            "colour": "Red",
+            "value": [ "230", "5" ],
+            "graph": true,
+            "min": 0,
+            "max": 255
+        },
+        {
+            "type": "byte",
+            "label": "0x230 6",
+            "colour": "Red",
+            "value": [ "230", "6" ],
+            "graph": true,
+            "min": 0,
+            "max": 255
+        },
+
+
+        {
+            "type": "byte",
+            "label": "0x428 0",
+            "colour": "Red",
+            "value": [ "428", "0" ],
+            "graph": true,
+            "min": 0,
+            "max": 255
+        },
+        {
+            "type": "byte",
+            "label": "0x428 1",
+            "colour": "Red",
+            "value": [ "428", "1" ],
+            "graph": true,
+            "min": 0,
+            "max": 255
+        },
+        {
+            "type": "byte",
+            "label": "0x428 2",
+            "colour": "Red",
+            "value": [ "428", "2" ],
+            "graph": true,
+            "min": 0,
+            "max": 255
+        },
+        {
+            "type": "byte",
+            "label": "0x428 4",
+            "colour": "Red",
+            "value": [ "428", "4" ],
+            "graph": true,
+            "min": 0,
+            "max": 255
+        },
+        {
+            "type": "byte",
+            "label": "0x428 5",
+            "colour": "Red",
+            "value": [ "428", "5" ],
+            "graph": true,
+            "min": 0,
+            "max": 255
+        },
+        {
+            "type": "byte",
+            "label": "0x428 6",
+            "colour": "Red",
+            "value": [ "428", "6" ],
+            "graph": true,
+            "min": 0,
+            "max": 255
+        },
+
+
+        {
+            "type": "byte",
+            "label": "0x430 0",
+            "colour": "Red",
+            "value": [ "430", "0" ],
+            "graph": true,
+            "min": 0,
+            "max": 255
+        },
+        {
+            "type": "byte",
+            "label": "0x430 2",
+            "colour": "Red",
+            "value": [ "430", "2" ],
+            "graph": true,
+            "min": 0,
+            "max": 255
+        },
+        {
+            "type": "byte",
+            "label": "0x430 3",
+            "colour": "Red",
+            "value": [ "430", "3" ],
+            "graph": true,
+            "min": 0,
+            "max": 255
+        },
+        {
+            "type": "byte",
+            "label": "0x430 4",
+            "colour": "Red",
+            "value": [ "430", "4" ],
+            "graph": true,
+            "min": 0,
+            "max": 255
         }
     ]
 }
