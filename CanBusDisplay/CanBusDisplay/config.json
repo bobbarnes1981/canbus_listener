@@ -18,16 +18,6 @@
         },
         {
             "type": "byte",
-            "label": "MAP",
-            "location": [ 0, 120 ],
-            "colour": "Orange",
-            "value": [ "420", "7" ],
-            "graph": true,
-            "min": 0,
-            "max": 255
-        },
-        {
-            "type": "byte",
             "label": "Accelerator",
             "location": [ 0, 80 ],
             "colour": "Green",
@@ -71,85 +61,37 @@
             "offset": -66
         },
 
-
-        {
-            "type": "byte",
-            "label": "0x201 0",
-            "colour": "Red",
-            "value": [ "201", "0" ],
-            "graph": true,
-            "min": 0,
-            "max": 255
-        },
-        {
-            "type": "byte",
-            "label": "0x201 1",
-            "colour": "Red",
-            "value": [ "201", "1" ],
-            "graph": true,
-            "min": 0,
-            "max": 255
-        },
-        {
-            "type": "byte",
-            "label": "0x201 4",
-            "colour": "Red",
-            "value": [ "201", "4" ],
-            "graph": true,
-            "min": 0,
-            "max": 255
-        },
-        {
-            "type": "byte",
-            "label": "0x201 5",
-            "colour": "Red",
-            "value": [ "201", "5" ],
-            "graph": true,
-            "min": 0,
-            "max": 255
-        },
-        {
-            "type": "byte",
-            "label": "0x201 6",
-            "colour": "Red",
-            "value": [ "201", "6" ],
-            "graph": true,
-            "min": 0,
-            "max": 255
-        },
-
-
-        {
-            "type": "byte",
-            "label": "0x210 2",
-            "colour": "Red",
-            "value": [ "210", "2" ],
-            "graph": true,
-            "min": 0,
-            "max": 255
-        },
+        //{
+        //    "type": "byte",
+        //    "label": "0x210 2",
+        //    "colour": "",
+        //    "value": [ "210", "2" ],
+        //    "graph": true,
+        //    "min": 0,
+        //    "max": 255
+        //},
         {
             "type": "byte",
             "label": "0x210 3",
-            "colour": "Red",
+            "colour": "DarkRed",
             "value": [ "210", "3" ],
             "graph": true,
             "min": 0,
             "max": 255
         },
-        {
-            "type": "byte",
-            "label": "0x210 4",
-            "colour": "Red",
-            "value": [ "210", "4" ],
-            "graph": true,
-            "min": 0,
-            "max": 255
-        },
+        //{
+        //    "type": "byte",
+        //    "label": "0x210 4",
+        //    "colour": "",
+        //    "value": [ "210", "4" ],
+        //    "graph": true,
+        //    "min": 0,
+        //    "max": 255
+        //},
         {
             "type": "byte",
             "label": "0x210 5",
-            "colour": "Red",
+            "colour": "White",
             "value": [ "210", "5" ],
             "graph": true,
             "min": 0,
@@ -158,7 +100,7 @@
         {
             "type": "byte",
             "label": "0x210 6",
-            "colour": "Red",
+            "colour": "Gray",
             "value": [ "210", "6" ],
             "graph": true,
             "min": 0,
@@ -169,7 +111,7 @@
         {
             "type": "byte",
             "label": "0x230 2",
-            "colour": "Red",
+            "colour": "Pink",
             "value": [ "230", "2" ],
             "graph": true,
             "min": 0,
@@ -178,7 +120,7 @@
         {
             "type": "byte",
             "label": "0x230 4",
-            "colour": "Red",
+            "colour": "Lime",
             "value": [ "230", "4" ],
             "graph": true,
             "min": 0,
@@ -187,7 +129,7 @@
         {
             "type": "byte",
             "label": "0x230 5",
-            "colour": "Red",
+            "colour": "DarkGray",
             "value": [ "230", "5" ],
             "graph": true,
             "min": 0,
@@ -196,7 +138,7 @@
         {
             "type": "byte",
             "label": "0x230 6",
-            "colour": "Red",
+            "colour": "GreenYellow",
             "value": [ "230", "6" ],
             "graph": true,
             "min": 0,
@@ -207,7 +149,7 @@
         {
             "type": "byte",
             "label": "0x428 0",
-            "colour": "Red",
+            "colour": "Orange",
             "value": [ "428", "0" ],
             "graph": true,
             "min": 0,
@@ -216,7 +158,7 @@
         {
             "type": "byte",
             "label": "0x428 1",
-            "colour": "Red",
+            "colour": "LightSalmon",
             "value": [ "428", "1" ],
             "graph": true,
             "min": 0,
@@ -225,7 +167,7 @@
         {
             "type": "byte",
             "label": "0x428 2",
-            "colour": "Red",
+            "colour": "MediumSpringGreen",
             "value": [ "428", "2" ],
             "graph": true,
             "min": 0,
@@ -234,7 +176,7 @@
         {
             "type": "byte",
             "label": "0x428 4",
-            "colour": "Red",
+            "colour": "SkyBlue",
             "value": [ "428", "4" ],
             "graph": true,
             "min": 0,
@@ -252,7 +194,7 @@
         {
             "type": "byte",
             "label": "0x428 6",
-            "colour": "Red",
+            "colour": "Gray",
             "value": [ "428", "6" ],
             "graph": true,
             "min": 0,
@@ -263,7 +205,7 @@
         {
             "type": "byte",
             "label": "0x430 0",
-            "colour": "Red",
+            "colour": "DeepPink",
             "value": [ "430", "0" ],
             "graph": true,
             "min": 0,
@@ -272,7 +214,7 @@
         {
             "type": "byte",
             "label": "0x430 2",
-            "colour": "Red",
+            "colour": "DarkViolet",
             "value": [ "430", "2" ],
             "graph": true,
             "min": 0,
@@ -281,7 +223,7 @@
         {
             "type": "byte",
             "label": "0x430 3",
-            "colour": "Red",
+            "colour": "DarkOrange",
             "value": [ "430", "3" ],
             "graph": true,
             "min": 0,
@@ -290,7 +232,7 @@
         {
             "type": "byte",
             "label": "0x430 4",
-            "colour": "Red",
+            "colour": "DarkSeaGreen",
             "value": [ "430", "4" ],
             "graph": true,
             "min": 0,

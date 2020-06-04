@@ -19,7 +19,7 @@ namespace CanBusDisplay
 
         private float elapsed;
 
-        private DataSource source;
+        private IDataSource source;
 
         private bool[] historyLines = new bool[1000];
         private Dictionary<string, int[]> history = new Dictionary<string, int[]>();
@@ -27,7 +27,7 @@ namespace CanBusDisplay
 
         private Config config;
 
-        public Controller(Config config, DataSource source)
+        public Controller(Config config, IDataSource source)
         {
             this.config = config;
             this.source = source;
@@ -122,12 +122,12 @@ namespace CanBusDisplay
                 }
             }
 
-            video.Blit(f.Render($"ABS FL {source.ABSSpeedFL}", Color.Red), new Point(0, 140));
-            video.Blit(f.Render($"ABS FR {source.ABSSpeedFR}", Color.Red), new Point(0, 160));
-            video.Blit(f.Render($"ABS RL {source.ABSSpeedRL}", Color.Red), new Point(0, 180));
-            video.Blit(f.Render($"ABS RR {source.ABSSpeedRR}", Color.Red), new Point(0, 200));
+            //video.Blit(f.Render($"ABS FL {source.ABSSpeedFL}", Color.Red), new Point(0, 140));
+            //video.Blit(f.Render($"ABS FR {source.ABSSpeedFR}", Color.Red), new Point(0, 160));
+            //video.Blit(f.Render($"ABS RL {source.ABSSpeedRL}", Color.Red), new Point(0, 180));
+            //video.Blit(f.Render($"ABS RR {source.ABSSpeedRR}", Color.Red), new Point(0, 200));
 
-            video.Blit(f.Render($"MIL {source.MIL}", Color.Red), new Point(300, 20));
+            //video.Blit(f.Render($"MIL {source.MIL}", Color.Red), new Point(300, 20));
 
             video.Update();
         }

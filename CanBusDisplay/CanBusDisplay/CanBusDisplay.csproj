@@ -54,6 +54,9 @@
     <Compile Include="Controller.cs" />
     <Compile Include="DataSource.cs" />
     <Compile Include="Display.cs" />
+    <Compile Include="FakeDataSource.cs" />
+    <Compile Include="Frame.cs" />
+    <Compile Include="IDataSource.cs" />
     <Compile Include="MILState.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -67,6 +70,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="libfreetype-6.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="output.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="SDL.dll">

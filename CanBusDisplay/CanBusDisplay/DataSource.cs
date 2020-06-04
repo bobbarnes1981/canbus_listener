@@ -8,7 +8,7 @@ using System.Threading;
 
 namespace CanBusDisplay
 {
-    class DataSource
+    class DataSource : IDataSource
     {
         private string name;
         private int baud;
@@ -17,7 +17,7 @@ namespace CanBusDisplay
 
         private Thread workerThread;
 
-        public Dictionary<int, byte[]> Data = new Dictionary<int, byte[]>
+        public Dictionary<int, byte[]> Data { get; } = new Dictionary<int, byte[]>
         {
             { 0x201, new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 } },
             { 0x200, new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 } },
